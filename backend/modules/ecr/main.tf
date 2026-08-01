@@ -6,7 +6,7 @@ resource "aws_ecr_repository" "this" {
 
   image_tag_mutability_exclusion_filter {
     filter_type = "WILDCARD"
-    filter      = "v-*"
+    filter      = "v*"
   }
 
   image_scanning_configuration {

@@ -48,5 +48,6 @@ variable "frontend_url" {
 }
 
 variable "container_image" {
-  default = "image-default"
+  description = "ECR image used by the ECS task"
+  type        = string
 }

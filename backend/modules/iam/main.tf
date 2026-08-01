@@ -123,6 +123,7 @@ data "aws_iam_policy_document" "secret_policy" {
 
   statement {
 
+    sid    = "ReadApplicationSecret"
     effect = "Allow"
 
     actions = [
@@ -131,6 +132,21 @@ data "aws_iam_policy_document" "secret_policy" {
 
     resources = [
       var.application_secret_arn
+    ]
+  }
+
+  statement {
+
+    sid    = "DecryptApplicationSecret"
+    effect = "Allow"
+
+    actions = [
+      "kms:Decrypt",
+      "kms:DescribeKey"
+    ]
+
+    resources = [
+      "*"
     ]
   }
 }
@@ -153,6 +169,12 @@ resource "aws_iam_role_policy_attachment" "ecs_task_s3_policy" {
   policy_arn = aws_iam_policy.ecs_s3_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "ecs_task_secret_policy" {
+
+  role = aws_iam_role.ecs_task_role.name
+
+  policy_arn = aws_iam_policy.secret_policy.arn
+}
 
 ##############################################
 # Attach Secret Policy

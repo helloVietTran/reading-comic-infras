@@ -42,7 +42,7 @@ variable "cluster_name" {
 
 variable "min_capacity" {
   type    = number
-  default = 2
+  default = 1
 }
 
 variable "max_capacity" {

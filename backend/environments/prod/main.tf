@@ -163,7 +163,7 @@ module "secrets_manager" {
 
   redis_host = module.elasticache.configuration_endpoint
   redis_port = module.elasticache.redis_port
-  postgres_url = module.rds.db_endpoint
+  postgres_url = "jdbc:postgresql://${module.rds.db_address}:${module.rds.db_port}/${module.rds.db_name}?sslmode=require"
 
   tags = local.common_tags
 }
@@ -230,7 +230,7 @@ module "ecs_service" {
 
   container_name = "${local.project_name}-app"
 
-  desired_count = 2
+  desired_count = 1
 
   tags = local.common_tags
 }
